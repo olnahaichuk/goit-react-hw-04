@@ -72,7 +72,11 @@ function App() {
     <>
       <div>
         <SearchBar onSubmit={handleSearch} />
-         { images.length === 0 && isLoading && <Loader />}
+        {images.length === 0 && isLoading && <Loader />}
+        {!isLoading && images.length === 0 && !error && (
+          <p style={{color: 'blue' , textAlign: 'center', fontSize: 30}}>За Вашим запитом результатів не знайдено</p>
+        )}
+
         {error && <ErrorMessage message={error} />}
         {images.length > 0 && (
           <>
