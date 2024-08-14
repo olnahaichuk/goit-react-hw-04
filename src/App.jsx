@@ -18,6 +18,7 @@ function App() {
   const [page, setPage] = useState(1);
   const [modalImage, setModalImage] = useState(null);
   const [query, setQuery] = useState('');
+  const [hasSearched, setHasSearched] = useState(false);
 
   
      const handleSearch = async (newQuery) => {
@@ -25,6 +26,7 @@ function App() {
       setIsLoading(true);
       setError(null);
       setQuery(newQuery);
+      setHasSearched(true);
       const { data } = await axios.get(API_URL, {
         params: { query: newQuery, page:1 , per_page: 12 },
         headers: { Authorization: `Client-ID ${API_KEY}` }
@@ -73,7 +75,7 @@ function App() {
       <div>
         <SearchBar onSubmit={handleSearch} />
         {images.length === 0 && isLoading && <Loader />}
-        {!isLoading && images.length === 0 && !error && (
+        {!isLoading && images.length === 0 && !error && hasSearched && (
           <p style={{color: 'blue' , textAlign: 'center', fontSize: 30}}>За Вашим запитом результатів не знайдено</p>
         )}
 
